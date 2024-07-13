@@ -88,7 +88,7 @@
 		<column name="title">
 			<settings>
 				<filter>text</filter>
-				<label translate="true">title</label>
+				<label translate="true">Title</label>
 				<editor>
 					<editorType>text</editorType>
 					<validation>
@@ -101,7 +101,7 @@
 		<column name="slug">
 			<settings>
 				<filter>text</filter>
-				<label translate="true">slug</label>
+				<label translate="true">Slug</label>
 				<editor>
 					<editorType>text</editorType>
 					<validation>
@@ -114,7 +114,7 @@
 		<column name="created_by">
 			<settings>
 				<filter>text</filter>
-				<label translate="true">created_by</label>
+				<label translate="true">Created by</label>
 				<editor>
 					<editorType>text</editorType>
 					<validation>
@@ -127,7 +127,7 @@
 		<column name="publish_date">
 			<settings>
 				<filter>text</filter>
-				<label translate="true">publish_date</label>
+				<label translate="true">Publish date</label>
 				<editor>
 					<editorType>date</editorType>
 					<validation>
@@ -137,18 +137,26 @@
 			</settings>
 		</column>
 
-		<column name="status">
-			<settings>
-				<filter>text</filter>
-				<label translate="true">status</label>
-				<editor>
-					<editorType>text</editorType>
-					<validation>
-						<rule name="required-entry" xsi:type="boolean">false</rule>
-					</validation>
-				</editor>
-			</settings>
-		</column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options>
+                    <option name="active" xsi:type="array">
+                        <item name="value" xsi:type="string">1</item>
+                        <item name="label" xsi:type="string" translate="true">Active</item>
+                    </option>
+                    <option name="inactive" xsi:type="array">
+                        <item name="value" xsi:type="string">0</item>
+                        <item name="label" xsi:type="string" translate="true">Inactive</item>
+                    </option>
+                </options>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
 
         <actionsColumn name="actions" class="Roweb\Blog\Ui\Component\Listing\Column\BlogActions">
             <settings>

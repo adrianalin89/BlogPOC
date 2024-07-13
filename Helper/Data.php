@@ -12,6 +12,8 @@ use Magento\Framework\App\Helper\Context;
 
 class Data extends AbstractHelper
 {
+    const string CONFIG_MODULE_PATH = 'blog';
+    const string CONFIG_GENERAL = 'general';
 
     /**
      * @param Context $context
@@ -23,12 +25,44 @@ class Data extends AbstractHelper
     }
 
     /**
-     * Blog module inheritance check
-     * @return bool
+     * @param string $code
+     * @param int $storeId
+     * @param string $config
+     * @return string|int
      */
-    public function isEnabled(): bool
+    private function getConfigGeneral(string $code = '', int $storeId = 0, string $config = self::CONFIG_GENERAL): mixed
     {
-        return true;
+        $code = ($code !== '') ? '/' . $code : '';
+
+        return $this->scopeConfig->getValue(
+            static::CONFIG_MODULE_PATH . '/' . $config . $code,
+            'default',
+            $storeId
+        );
+    }
+
+    /**
+     * Blog module inheritance check
+     * @param null $storeId
+     * @return int
+     */
+    public function isEnabled($storeId = null): int
+    {
+        return (int)$this->getConfigGeneral('status', (int)$storeId);
+    }
+
+    /**
+     * Show in menu
+     * @param null $storeId
+     * @return int
+     */
+    public function toMenu($storeId = null): int
+    {
+        if (!$this->isEnabled($storeId)) {
+            return 0;
+        }
+
+        return (int)$this->getConfigGeneral('menu', (int)$storeId);
     }
 }
 
