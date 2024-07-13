@@ -1,11 +1,20 @@
-Introducere
+# Mage2 Module Roweb Blog
 
-Cerințele pentru dezvoltarea unui modul custom de blog pentru Magento. Modulul va oferi o funcționalitate simplă de administrare a posturilor de blog în backend și de afișare a acestora în frontend.
+    ``roweb/module-blog``
 
-Obiective
+ - [Main Functionalities](#markdown-header-main-functionalities)
+ - [Installation](#markdown-header-installation)
+ - [Configuration](#markdown-header-configuration)
+ - [Specifications](#markdown-header-specifications)
 
-    Administrare Posturi în Backend: Să permită adăugarea, editarea și ștergerea posturilor de blog.
-    Listare Posturi în Frontend: Să afișeze posturile de blog într-o pagină dedicată din frontend.
+
+## Main Functionalities
+Magento 2 Blog Module POC
+Modulul va oferi o funcționalitate simplă de administrare a posturilor de blog în backend și de afișare a acestora în frontend.
+
+Administrare Posturi în Backend: Să permită adăugarea, editarea și ștergerea posturilor de blog.
+
+Listare Posturi în Frontend: Să afișeze posturile de blog într-o pagină dedicată din frontend.
 
 Cerințe Funcționale
 
@@ -67,5 +76,40 @@ Criterii de Evaluare
     Funcționalitate: Modulul trebuie să îndeplinească toate cerințele funcționale descrise.
     Calitate Cod: Codul trebuie să fie curat, bine structurat și comentat.
 
+## Installation
+\* = in production please use the `--keep-generated` option
+
+### Type 1: Zip file
+
+ - Unzip the zip file in `app/code/Roweb`
+ - Enable the module by running `php bin/magento module:enable Roweb_Blog`
+ - Apply database updates by running `php bin/magento setup:upgrade`\*
+ - Flush the cache by running `php bin/magento cache:flush`
+
+### Type 2: Composer (TODO)
+
+ - .....
+ - Add the composer repository to the configuration by running `composer config ......`
+ - Install the module composer by running `composer require roweb/module-blog`
+ - enable the module by running `php bin/magento module:enable Roweb_Blog`
+ - apply database updates by running `php bin/magento setup:upgrade`\*
+ - Flush the cache by running `php bin/magento cache:flush`
 
 
+## Configuration
+
+ - Enable Blog (blog/general/status)
+
+ - Show in menu (blog/general/menu)
+
+
+## Specifications
+
+ - Helper
+	- Roweb\Blog\Helper\Data (Configuration getter)
+
+ - Model
+	- Blog (main entity)
+
+ - Plugin
+	- beforeGetHtml - Magento\Theme\Block\Html\Topmenu > Roweb\Blog\Plugin\Frontend\Magento\Theme\Block\Html\Topmenu (this is used to add item to menu)

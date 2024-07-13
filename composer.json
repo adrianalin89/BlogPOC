@@ -1,0 +1,25 @@
+{
+    "name": "roweb/module-blog",
+    "description": "Magento 2 Blog Module POC",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Adrian Alin",
+            "email": "alin.munteanu@roweb.ro"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "magento/framework": "*",
+        "magento/module-theme": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Roweb\\Blog\\": ""
+        }
+    }
+}
