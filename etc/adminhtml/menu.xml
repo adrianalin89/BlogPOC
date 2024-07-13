@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+
+	<menu>
+        <!--Main vendor menu if not exist-->
+		<add id="Roweb::vendor_menu"
+             title="Roweb"
+             module="Roweb_Blog"
+             sortOrder="10"
+             resource="Magento_Backend::content"/>
+
+        <!--Blog entry to menu-->
+		<add id="Roweb_Blog::roweb_blog"
+             title="Blog"
+             module="Roweb_Blog"
+             sortOrder="10"
+             resource="Magento_Backend::content"
+             parent="Roweb::vendor_menu"
+             action="roweb_blog/blog/index"/>
+	</menu>
+
+</config>

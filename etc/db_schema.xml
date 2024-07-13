@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+	<table name="roweb_blog" resource="default" engine="innodb" comment="Blog Table">
+
+		<column name="post_id"      nullable="false" xsi:type="int"       comment="Entity Id" padding="10" unsigned="true" identity="true" />
+        <column name="status"       nullable="true"  xsi:type="int"       comment="Post status" default="0" identity="false"/>
+        <column name="publish_date" nullable="true"  xsi:type="timestamp" comment="Post publish date"/>
+        <column name="title"        nullable="false" xsi:type="varchar"   comment="Post Title" length="255"/>
+        <column name="slug"         nullable="true"  xsi:type="varchar"   comment="Post slug"  length="255"/>
+        <column name="created_by"   nullable="true"  xsi:type="varchar"   comment="created_by" length="255"/>
+        <column name="content"      nullable="false" xsi:type="text"      comment="Post content"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="post_id"/>
+        </constraint>
+
+	</table>
+
+</schema>

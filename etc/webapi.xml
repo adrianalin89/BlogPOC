@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+	<route url="/V1/roweb-blog/blog" method="POST">
+		<service class="Roweb\Blog\Api\BlogRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Roweb_Blog::Blog_save"/>
+		</resources>
+	</route>
+
+	<route url="/V1/roweb-blog/blog/search" method="GET">
+		<service class="Roweb\Blog\Api\BlogRepositoryInterface" method="getList"/>
+		<resources>
+			<resource ref="Roweb_Blog::Blog_view"/>
+		</resources>
+	</route>
+
+	<route url="/V1/roweb-blog/blog/:postId" method="GET">
+		<service class="Roweb\Blog\Api\BlogRepositoryInterface" method="get"/>
+		<resources>
+			<resource ref="Roweb_Blog::Blog_view"/>
+		</resources>
+	</route>
+
+	<route url="/V1/roweb-blog/blog/:postId" method="PUT">
+		<service class="Roweb\Blog\Api\BlogRepositoryInterface" method="save"/>
+		<resources>
+			<resource ref="Roweb_Blog::Blog_update"/>
+		</resources>
+	</route>
+
+	<route url="/V1/roweb-blog/blog/:postId" method="DELETE">
+		<service class="Roweb\Blog\Api\BlogRepositoryInterface" method="deleteById"/>
+		<resources>
+			<resource ref="Roweb_Blog::Blog_delete"/>
+		</resources>
+	</route>
+
+</routes>

@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+	<preference for="Roweb\Blog\Api\BlogRepositoryInterface"
+                type="Roweb\Blog\Model\BlogRepository"/>
+	<preference for="Roweb\Blog\Api\Data\BlogInterface"
+                type="Roweb\Blog\Model\Blog"/>
+	<preference for="Roweb\Blog\Api\Data\BlogSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+
+	<virtualType name="Roweb\Blog\Model\ResourceModel\Blog\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">roweb_blog</argument>
+			<argument name="resourceModel" xsi:type="string">Roweb\Blog\Model\ResourceModel\Blog\Collection</argument>
+		</arguments>
+	</virtualType>
+
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="roweb_blog_listing_data_source"
+                      xsi:type="string">Roweb\Blog\Model\ResourceModel\Blog\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+
+</config>
