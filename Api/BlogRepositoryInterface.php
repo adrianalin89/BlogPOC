@@ -8,6 +8,7 @@ declare(strict_types=1);
 namespace Roweb\Blog\Api;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SearchResults;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Roweb\Blog\Api\Data\BlogInterface;
@@ -35,12 +36,12 @@ interface BlogRepositoryInterface
     /**
      * Retrieve Blog matching the specified criteria.
      * @param SearchCriteriaInterface $searchCriteria
-     * @return BlogSearchResultsInterface
+     * @return SearchResults
      * @throws LocalizedException
      */
     public function getList(
         SearchCriteriaInterface $searchCriteria
-    ): BlogSearchResultsInterface;
+    ): SearchResults;
 
     /**
      * Delete Blog

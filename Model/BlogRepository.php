@@ -9,6 +9,7 @@ namespace Roweb\Blog\Model;
 
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SearchResults;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -104,7 +105,7 @@ class BlogRepository implements BlogRepositoryInterface
      */
     public function getList(
         SearchCriteriaInterface $searchCriteria
-    ): BlogSearchResultsInterface
+    ): SearchResults
     {
         $collection = $this->blogCollectionFactory->create();
 

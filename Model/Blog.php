@@ -13,6 +13,7 @@ use Roweb\Blog\Model\ResourceModel\Blog as ResourceModel;
 
 class Blog extends AbstractModel implements BlogInterface
 {
+    const int STATUS_ACTIVE = 1;
 
     /**
      * @inheritDoc

@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Roweb\Blog\Block\Index;
+namespace Roweb\Blog\Block\Post;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Element\Template;
@@ -15,7 +15,7 @@ use Roweb\Blog\Model\BlogRepository;
 use Roweb\Blog\Model\Blog as BlogModel;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 
-class Index extends Template
+class View extends Template
 {
 
     protected HelperData $helperData;
@@ -27,6 +27,8 @@ class Index extends Template
      *
      * @param Context $context
      * @param HelperData $helperData
+     * @param BlogRepository $blogRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param array $data
      */
     public function __construct(
@@ -42,17 +44,13 @@ class Index extends Template
         parent::__construct($context, $data);
     }
 
-    public function getPosts(): array
+    /**
+     * @return BlogModel
+     * @throws LocalizedException
+     */
+    public function getPost(): BlogModel
     {
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('status', BlogModel::STATUS_ACTIVE)
-            ->create();
-        try {
-            $blogPosts = $this->blogRepository->getList($searchCriteria);
-            return $blogPosts->getItems();
-        } catch (LocalizedException $e) {
-            return [];
-        }
+        $postId = $this->getRequest()->getParam('post_id');
+        return $this->blogRepository->get($postId);
     }
 }
-

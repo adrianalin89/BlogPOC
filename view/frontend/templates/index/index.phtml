@@ -1,1 +1,16 @@
-...
+<?php
+/**
+ * @var Roweb\Blog\Block\Index\Index $block
+ * @var Roweb\Blog\Controller\Index\Index $this
+ */
+?>
+
+<h1>Posts</h1>
+<ul>
+    <?php foreach ($block->getPosts() as $post): ?>
+        <?php /** @var Roweb\Blog\Model\Blog $post */ ?>
+        <li>
+            <a href="blog/<?= $post->getSlug() ?>"><?= $post->getTitle() ?></a>
+        </li>
+    <?php endforeach; ?>
+</ul>

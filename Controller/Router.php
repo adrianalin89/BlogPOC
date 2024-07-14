@@ -7,27 +7,34 @@ declare(strict_types=1);
 
 namespace Roweb\Blog\Controller;
 
+use Roweb\Blog\Helper\Data as HelperData;
 use Magento\Framework\App\ActionFactory;
 use Magento\Framework\App\Action\Forward;
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\App\RouterInterface;
+use Magento\Store\Model\StoreManagerInterface;
 
 class Router implements RouterInterface
 {
 
-    protected $transportBuilder;
-    protected $actionFactory;
+    protected ActionFactory $actionFactory;
+    protected HelperData $helperData;
+    protected ResponseInterface $_response;
+    protected StoreManagerInterface $_storeManager;
 
-    /**
-     * Router constructor
-     *
-     * @param ActionFactory $actionFactory
-     */
     public function __construct(
-        ActionFactory $actionFactory
-    ) {
+        ActionFactory $actionFactory,
+        ResponseInterface $response,
+        HelperData $helperData,
+        StoreManagerInterface $storeManager
+    )
+    {
         $this->actionFactory = $actionFactory;
+        $this->_response = $response;
+        $this->helperData = $helperData;
+        $this->_storeManager = $storeManager;
     }
 
     /**
@@ -35,42 +42,57 @@ class Router implements RouterInterface
      */
     public function match(RequestInterface $request): ?ActionInterface
     {
-        $result = null;
+        $identifier = trim($request->getPathInfo(), '/');
 
-        //@TODO check if module enabled
-
-        /* @TODO create logic for blog
-       $identifier = trim($request->getPathInfo(), '/');
-        if (strpos($request->getPathInfo(), 'blog')) {
-            $requestUri = trim($request->getRequestUri(), '/');
-            if ($identifier !== $requestUri && strpos($requestUri, 'blog?') === false) {
-                $identifier = $requestUri;
-            }
-        } else {
-            return $result;
+        // Verifică dacă URL-ul începe cu 'blog'
+        if (strpos($identifier, 'blog') !== 0) {
+            return null;
         }
-         *
-         *
-        if ($request->getModuleName() != 'blog' && $this->validateRoute($request)) {
+
+        $pathParts = explode('/', $identifier);
+
+        // Verifică dacă modulul este activat
+       /* if (!$this->helperData->isModuleEnabled()) {
+            return null;
+        }*/
+
+        // Gestionează redirecționarea pentru '/blog/' către '/blog'
+        if ($identifier === 'blog' && substr($request->getPathInfo(), -1) === '/') {
+            $this->_response->setRedirect($this->_storeManager->getStore()->getBaseUrl() . 'blog', 301);
+            $this->_response->sendResponse();
+            exit();
+        }
+
+        // Rută pentru pagina principală a blogului
+        if ($identifier === 'blog') {
             $request->setModuleName('blog')
-                ->setControllerName('blog')
-                ->setActionName('view') //or listposts
-                ->setParam('post_id', $postId);
-            $result = $this->actionFactory->create(Forward::class);
+                ->setControllerName('index')
+                ->setActionName('index')
+                ->setPathInfo('/blog/index/index');
+            return $this->actionFactory->create(Forward::class);
         }
-         */
 
-        return $result;
+        // Rută pentru vizualizarea unui post specific
+        if (count($pathParts) === 2) {
+            $slug = $pathParts[1];
+            $postId = $this->getPostIdBySlug($slug);
+
+            if ($postId) {
+                $request->setModuleName('blog')
+                    ->setControllerName('index')
+                    ->setActionName('view')
+                    ->setParam('post_id', $postId)
+                    ->setPathInfo('/blog/index/view');
+                return $this->actionFactory->create(Forward::class);
+            }
+        }
+
+        return null;
     }
 
-    /**
-     * @param RequestInterface $request
-     * @return bool
-     */
-    public function validateRoute(RequestInterface $request): bool
+    private function getPostIdBySlug(string $slug)
     {
-        $identifier = trim($request->getPathInfo(), '/');
-        return strpos($identifier, 'blog') !== false;
+        return 4; // @TODO load by slug
     }
 }
 

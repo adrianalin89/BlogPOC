@@ -5,10 +5,10 @@
     <body>
         <referenceContainer name="content">
 
-            <block name="index.index"
+            <block name="blog_post_view"
                    ifconfig="blog/general/status"
-                   class="Roweb\Blog\Block\Index\Index"
-                   template="Roweb_Blog::index/index.phtml"/>
+                   class="Roweb\Blog\Block\Post\View"
+                   template="Roweb_Blog::post/view.phtml"/>
 
         </referenceContainer>
     </body>

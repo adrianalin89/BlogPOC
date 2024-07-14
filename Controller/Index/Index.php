@@ -7,37 +7,8 @@ declare(strict_types=1);
 
 namespace Roweb\Blog\Controller\Index;
 
-use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\PageFactory;
+use Roweb\Blog\Controller\AbstractIndex;
 
-class Index implements HttpGetActionInterface
+class Index extends AbstractIndex
 {
-
-    /**
-     * @var PageFactory
-     */
-    protected PageFactory $resultPageFactory;
-
-    /**
-     * Constructor
-     *
-     * @param PageFactory $resultPageFactory
-     */
-    public function __construct(
-        PageFactory $resultPageFactory
-    ) {
-        $this->resultPageFactory = $resultPageFactory;
-    }
-
-    /**
-     * Execute view action
-     *
-     * @return ResultInterface
-     */
-    public function execute(): ResultInterface
-    {
-        return $this->resultPageFactory->create();
-    }
 }
-
