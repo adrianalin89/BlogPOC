@@ -8,7 +8,8 @@
             <block name="index.index"
                    ifconfig="blog/general/status"
                    class="Roweb\Blog\Block\Index\Index"
-                   template="Roweb_Blog::index/index.phtml"/>
+                   template="Roweb_Blog::index/index.phtml"
+            />
 
         </referenceContainer>
     </body>

@@ -4,4 +4,13 @@
  */
 $post = $block->getPost();
 ?>
-<p><?= $post->getContent() ?></p>
+<div class="post-container">
+    <h1 class="post-title"><?= $post->getTitle() ?></h1>
+    <div class="post-meta">
+        <span class="post-date"><?= $post->getPublishDate() ?></span>
+        <span class="post-author">by <?= $post->getCreatedBy() ?></span>
+    </div>
+    <div class="post-content">
+        <p><?= $post->getContent() ?></p>
+    </div>
+</div>

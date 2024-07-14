@@ -27,6 +27,8 @@ class Index extends Template
      *
      * @param Context $context
      * @param HelperData $helperData
+     * @param BlogRepository $blogRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param array $data
      */
     public function __construct(

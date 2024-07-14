@@ -3,6 +3,9 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
 
     <body>
+        <!-- Remove default page title block -->
+        <referenceBlock name="page.main.title" remove="true" />
+
         <referenceContainer name="content">
 
             <block name="blog_post_view"

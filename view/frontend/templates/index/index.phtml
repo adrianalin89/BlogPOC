@@ -5,12 +5,20 @@
  */
 ?>
 
-<h1>Posts</h1>
-<ul>
-    <?php foreach ($block->getPosts() as $post): ?>
-        <?php /** @var Roweb\Blog\Model\Blog $post */ ?>
-        <li>
-            <a href="blog/<?= $post->getSlug() ?>"><?= $post->getTitle() ?></a>
-        </li>
-    <?php endforeach; ?>
-</ul>
+<div class="blog-container">
+    <h1 class="blog-title">Posts</h1>
+    <ul class="blog-posts-list">
+        <?php foreach ($block->getPosts() as $post): ?>
+            <?php /** @var Roweb\Blog\Model\Blog $post */ ?>
+            <li class="blog-post-item">
+                <div class="post-content">
+                    <a href="<?= $block->getUrl('blog/' . $post->getSlug()) ?>" class="blog-post-title"><?= $post->getTitle() ?></a>
+                    <div class="post-meta">
+                        <span class="blog-post-date"><?= $post->getPublishDate() ?></span>
+                        <span class="blog-post-author">by <?= $post->getCreatedBy() ?></span>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
